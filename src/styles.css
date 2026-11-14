@@ -30,6 +30,10 @@
  */
 
 @theme inline {
+  --font-sans: "DM Sans", ui-sans-serif, system-ui, sans-serif;
+  --color-festive: var(--festive);
+  --color-festive-foreground: var(--festive-foreground);
+  --color-success: var(--success);
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -80,8 +84,12 @@
   --card-foreground: oklch(0.129 0.042 264.695);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.129 0.042 264.695);
-  --primary: oklch(0.208 0.042 265.755);
-  --primary-foreground: oklch(0.984 0.003 247.858);
+  --primary: oklch(0.47 0.17 8);
+  --primary-foreground: oklch(0.99 0 0);
+  --festive: oklch(0.36 0.12 300);
+  --festive-foreground: oklch(0.99 0 0);
+  --festive-mid: oklch(0.5 0.11 330);
+  --success: oklch(0.62 0.17 145);
   --secondary: oklch(0.968 0.007 247.896);
   --secondary-foreground: oklch(0.208 0.042 265.755);
   --muted: oklch(0.968 0.007 247.896);
@@ -92,7 +100,7 @@
   --destructive-foreground: oklch(0.984 0.003 247.858);
   --border: oklch(0.929 0.013 255.508);
   --input: oklch(0.929 0.013 255.508);
-  --ring: oklch(0.704 0.04 256.788);
+  --ring: oklch(0.47 0.17 8);
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);
@@ -153,3 +161,8 @@
     color: var(--color-foreground);
   }
 }
+
+.dark { --festive: oklch(0.3 0.1 300); --festive-foreground: oklch(0.99 0 0); --success: oklch(0.7 0.17 145); }
+@utility no-scrollbar { scrollbar-width: none; &::-webkit-scrollbar { display: none; } }
+html, body { overflow-x: hidden; }
+body { font-family: var(--font-sans); }

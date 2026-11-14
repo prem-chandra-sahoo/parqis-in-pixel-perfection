@@ -28,3 +28,5 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+
+- Store catalog lives in src/data/store.json (scraped from parqis.com); per-user cart/wishlist sync via ShopProvider in src/lib/cart.tsx to Lovable Cloud tables, localStorage for guests — one source of shop state.
