@@ -39,7 +39,7 @@ export function FestiveHeader({ tab, onTab }: { tab: Tab; onTab: (t: Tab) => voi
         </div>
         <div className="no-scrollbar mt-8 flex gap-4 overflow-x-auto sm:gap-6">
           {categories.map((c) => (
-            <Link key={c.name} to="/search" search={{ q: c.name.replace(/'s|s$/g, "").split(" ").slice(-1)[0] }} className="w-[90px] shrink-0 text-center sm:w-[110px]">
+            <Link key={c.name} to="/search" search={{ q: c.name.replace(/'s|s$/g, "").split(" ").slice(-1)[0] ?? "" }} className="w-[90px] shrink-0 text-center sm:w-[110px]">
               <img src={c.img} alt={c.name} className="mx-auto aspect-square w-full object-contain transition-transform hover:-translate-y-1" />
               <p className="mt-1 line-clamp-2 text-[15px] leading-tight sm:text-base">{c.name}</p>
             </Link>

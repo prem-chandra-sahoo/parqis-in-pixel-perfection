@@ -5,7 +5,7 @@ import { Grid, PageShell } from "@/components/parqis/PageShell";
 import { searchProducts } from "@/lib/store";
 
 export const Route = createFileRoute("/search")({
-  validateSearch: (s: Record<string, unknown>) => ({ q: typeof s.q === "string" ? s.q : "" }),
+  validateSearch: (s: Record<string, unknown>) => ({ q: typeof s["q"] === "string" ? s["q"] : "" }),
   head: () => ({ meta: [{ title: "Search - PARQIS" }, { name: "description", content: "Search PARQIS products." }, { property: "og:title", content: "Search - PARQIS" }, { property: "og:description", content: "Search PARQIS products." }] }),
   component: SearchPage,
 });
