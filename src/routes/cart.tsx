@@ -18,11 +18,11 @@ function CartPage() {
   const [busy, setBusy] = useState(false);
   const place = async () => {
     if (!session) { toast("Please sign in to place your order"); return nav({ to: "/login" }); }
-    if (!address) return toast.error("Please select a delivery address on the home page first");
+    if (!address) { toast.error("Please select a delivery address on the home page first"); return; }
     setBusy(true);
     const { error } = await supabase.from("orders").insert({ user_id: session.user.id, items: cart as never, total, address });
     setBusy(false);
-    if (error) return toast.error("Couldn't place order");
+    if (error) { toast.error("Couldn't place order"); return; }
     clearCart(); toast.success("Order placed!"); nav({ to: "/account" });
   };
   const total = cart.reduce((a, l) => a + l.product.price * l.qty, 0);

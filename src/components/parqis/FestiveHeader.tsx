@@ -14,7 +14,7 @@ export function FestiveHeader({ tab, onTab }: { tab: Tab; onTab: (t: Tab) => voi
   const { address, wishlist } = useShop();
   return (
     <div className="relative text-festive-foreground">
-      <div className="sticky top-0 z-30 bg-festive bg-cover bg-top px-4 pb-3 pt-5 sm:px-6" style={{ backgroundImage: `url(${BG})` }}>
+      <div className="sticky top-0 z-30 bg-festive bg-cover bg-top px-4 pb-3 pt-5 sm:px-6" style={{ backgroundColor: "var(--festive)", backgroundImage: `url(${BG})` }}>
         <div className="mb-4 grid grid-cols-[minmax(0,1fr)_auto] items-center gap-4">
           <button onClick={() => setOpen(true)} className="flex min-w-0 items-center gap-1 text-[17px] font-medium">
             <MapPin className="size-5 shrink-0" /><span className="truncate">{address ?? "Select an address"}</span><ChevronDown className="size-4 shrink-0" />
@@ -28,7 +28,7 @@ export function FestiveHeader({ tab, onTab }: { tab: Tab; onTab: (t: Tab) => voi
         </div>
         <SearchBar />
       </div>
-      <div className="bg-festive bg-cover bg-bottom px-4 pb-6 pt-4 sm:px-6" style={{ backgroundImage: `linear-gradient(to bottom, transparent 70%, var(--background)), url(${BG})` }}>
+      <div className="bg-festive bg-cover bg-bottom px-4 pb-6 pt-4 sm:px-6" style={{ backgroundImage: "linear-gradient(to bottom, var(--festive) 0%, var(--festive-mid) 75%, var(--background) 100%)" }}>
         <div className="no-scrollbar flex gap-2 overflow-x-auto">
           {TABS.map((t) => (
             <button key={t} onClick={() => onTab(t)}
