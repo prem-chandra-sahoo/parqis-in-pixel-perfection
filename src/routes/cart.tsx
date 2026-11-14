@@ -1,4 +1,6 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
 import { Minus, Plus } from "lucide-react";
 import { toast } from "sonner";
 import { PageShell } from "@/components/parqis/PageShell";
@@ -11,7 +13,18 @@ export const Route = createFileRoute("/cart")({
 });
 
 function CartPage() {
-  const { cart, setQty, address } = useShop();
+  const { cart, setQty, address, session, clearCart } = useShop();
+  const nav = useNavigate();
+  const [busy, setBusy] = useState(false);
+  const place = async () => {
+    if (!session) { toast("Please sign in to place your order"); return nav({ to: "/login" }); }
+    if (!address) return toast.error("Please select a delivery address on the home page first");
+    setBusy(true);
+    const { error } = await supabase.from("orders").insert({ user_id: session.user.id, items: cart as never, total, address });
+    setBusy(false);
+    if (error) return toast.error("Couldn't place order");
+    clearCart(); toast.success("Order placed!"); nav({ to: "/account" });
+  };
   const total = cart.reduce((a, l) => a + l.product.price * l.qty, 0);
   const mrp = cart.reduce((a, l) => a + l.product.mrp * l.qty, 0);
   return (
@@ -37,7 +50,7 @@ function CartPage() {
             <div className="flex justify-between"><span>Total MRP</span><span>{formatPrice(mrp)}</span></div>
             <div className="flex justify-between text-success"><span>Discount</span><span>-{formatPrice(mrp - total)}</span></div>
             <div className="mt-2 flex justify-between text-lg font-semibold"><span>Total</span><span>{formatPrice(total)}</span></div>
-            <button onClick={() => toast(address ? "Checkout is coming soon" : "Please select a delivery address first")} className="mt-4 w-full rounded-md bg-primary py-3 text-primary-foreground">Place Order</button>
+            <button onClick={place} disabled={busy} className="mt-4 disabled:opacity-60 w-full rounded-md bg-primary py-3 text-primary-foreground">Place Order</button>
           </div>
         </div>
       )}
