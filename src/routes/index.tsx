@@ -21,16 +21,28 @@ export const Route = createFileRoute("/")({
 
 function Home() {
   const [tab, setTab] = useState<Tab>("ALL");
+
   return (
-    <div className="mx-auto max-w-6xl pb-28">
+    <div className="min-h-screen bg-background pb-12 sm:pb-16">
       <FestiveHeader tab={tab} onTab={setTab} />
       <BannerCarousel />
-      <div className="mt-6">
+      <div className="mt-4 sm:mt-6">
         {sections.map((s, i) =>
           s.kind === "row" ? (
-            <ProductRow key={s.title} title={s.title} products={s.products.filter((p) => matchesTab(p, tab))} />
+            <ProductRow
+              key={s.title}
+              title={s.title}
+              products={s.products.filter((p) => matchesTab(p, tab))}
+            />
           ) : tab === "ALL" ? (
-            <div key={i} className="px-4 py-3 sm:px-6"><img src={s.img} alt="Offer" loading="lazy" className="w-full rounded-md" /></div>
+            <div key={i} className="mx-auto max-w-7xl px-4 py-4 sm:px-6 lg:px-8">
+              <img
+                src={s.img}
+                alt="Offer banner"
+                loading="lazy"
+                className="w-full rounded-xl shadow-sm object-cover max-h-[380px]"
+              />
+            </div>
           ) : null,
         )}
       </div>

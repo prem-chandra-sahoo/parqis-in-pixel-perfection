@@ -12,7 +12,8 @@ import { useEffect, type ReactNode } from "react";
 
 import { Toaster } from "@/components/ui/sonner";
 import { ShopProvider } from "@/lib/cart";
-import { BottomNav } from "@/components/parqis/BottomNav";
+import { Navbar } from "@/components/parqis/Navbar";
+import { Footer } from "@/components/parqis/Footer";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 
@@ -130,8 +131,13 @@ function RootComponent() {
     <QueryClientProvider client={queryClient}>
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
       <ShopProvider>
-        <Outlet />
-        <BottomNav />
+        <Navbar />
+        <div className="flex min-h-screen flex-col">
+          <div className="flex-1">
+            <Outlet />
+          </div>
+          <Footer />
+        </div>
         <Toaster position="top-center" />
       </ShopProvider>
     </QueryClientProvider>

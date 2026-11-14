@@ -19,7 +19,7 @@ export function AddressSheet({ open, onOpenChange }: { open: boolean; onOpenChan
   };
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
-      <SheetContent side="bottom" className="mx-auto max-h-[85vh] max-w-2xl overflow-y-auto rounded-t-3xl px-4 pb-8 pt-3">
+      <SheetContent side="bottom" className="mx-auto max-h-[85vh] max-w-2xl overflow-y-auto rounded-t-3xl sm:rounded-2xl px-5 pb-8 pt-4 sm:p-6 shadow-2xl">
         <div className="mx-auto mb-5 h-1 w-12 rounded-full bg-border" />
         <SheetTitle className="text-2xl font-medium">Select Delivery Address</SheetTitle>
         <SheetDescription className="mt-1 text-base text-foreground">Choose where you'd like your order delivered.</SheetDescription>

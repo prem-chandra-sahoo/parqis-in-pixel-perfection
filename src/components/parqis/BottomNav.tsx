@@ -13,7 +13,7 @@ export function BottomNav() {
   const { pathname } = useLocation();
   const { count } = useShop();
   return (
-    <nav className="fixed inset-x-0 bottom-3 z-40 mx-auto w-[calc(100%-1.5rem)] max-w-md rounded-full border border-border/60 bg-background/80 p-1.5 shadow-lg backdrop-blur-md">
+    <nav className="fixed inset-x-0 bottom-3 z-40 mx-auto w-[calc(100%-1.5rem)] max-w-md rounded-full border border-border/60 bg-background/80 p-1.5 shadow-lg backdrop-blur-md md:hidden">
       <ul className="grid grid-cols-4">
         {items.map(({ to, label, Icon }) => {
           const active = pathname === to;

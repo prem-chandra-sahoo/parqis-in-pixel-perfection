@@ -164,5 +164,23 @@
 
 .dark { --festive: oklch(0.3 0.1 300); --festive-foreground: oklch(0.99 0 0); --success: oklch(0.7 0.17 145); }
 @utility no-scrollbar { scrollbar-width: none; &::-webkit-scrollbar { display: none; } }
-html, body { overflow-x: hidden; }
-body { font-family: var(--font-sans); }
+html {
+  overflow-x: clip;
+}
+body {
+  overflow-x: clip;
+  font-family: var(--font-sans);
+}
+
+/* Suppress platform badges, watermarks, and promotional overlays */
+#lovable-badge,
+[id*="lovable-badge"],
+[class*="lovable-badge"],
+[data-lovable-badge],
+a[href*="lovable.dev"],
+a[href*="lovable.app"] {
+  display: none !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  visibility: hidden !important;
+}
