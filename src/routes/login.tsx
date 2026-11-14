@@ -51,13 +51,42 @@ function Login() {
   };
 
   const google = async () => {
-    const { error } = await supabase.auth.signInWithOAuth({
-      provider: "google",
-      options: { redirectTo: window.location.origin + "/account" },
-    });
-    if (error) {
-      const r = await lovable.auth.signInWithOAuth("google", { redirect_uri: window.location.origin });
-      if (r.error) toast.error(error.message || "Google sign-in failed");
+    try {
+      setBusy(true);
+      const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || "";
+      
+      // Probe Supabase OAuth authorize endpoint to verify Google provider is active
+      const check = await fetch(
+        `${supabaseUrl}/auth/v1/authorize?provider=google&redirect_to=${encodeURIComponent(window.location.origin + "/account")}`,
+        { redirect: "manual" }
+      ).catch(() => null);
+
+      if (check && check.status === 400) {
+        toast.error("Google provider is not enabled in your Supabase dashboard yet. Please enable Google in Supabase > Authentication > Providers > Google.", {
+          duration: 7000,
+        });
+        setBusy(false);
+        return;
+      }
+
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider: "google",
+        options: {
+          redirectTo: `${window.location.origin}/account`,
+          queryParams: {
+            access_type: "offline",
+            prompt: "consent",
+          },
+        },
+      });
+
+      if (error) {
+        toast.error(error.message);
+        setBusy(false);
+      }
+    } catch (err: unknown) {
+      toast.error(err instanceof Error ? err.message : "Google sign-in failed");
+      setBusy(false);
     }
   };
 
@@ -78,8 +107,9 @@ function Login() {
 
           <button
             type="button"
+            disabled={busy}
             onClick={google}
-            className="flex w-full items-center justify-center gap-3 rounded-xl border border-border bg-background px-4 py-3 text-sm font-semibold text-foreground shadow-sm transition hover:bg-muted"
+            className="flex w-full items-center justify-center gap-3 rounded-xl border border-border bg-background px-4 py-3 text-sm font-semibold text-foreground shadow-sm transition hover:bg-muted disabled:opacity-60"
           >
             <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24">
               <path
@@ -99,7 +129,7 @@ function Login() {
                 d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.31 0 3.26 2.7 1.29 6.62l3.98 3.09c.95-2.85 3.6-4.96 6.73-4.96z"
               />
             </svg>
-            Continue with Google
+            {busy ? "Connecting..." : "Continue with Google"}
           </button>
 
           <div className="relative flex items-center justify-center">
