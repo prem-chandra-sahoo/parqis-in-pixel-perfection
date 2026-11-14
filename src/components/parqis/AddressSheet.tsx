@@ -11,7 +11,7 @@ export function AddressSheet({ open, onOpenChange }: { open: boolean; onOpenChan
   const [form, setForm] = useState("");
   const save = (a: string) => { setAddress(a); onOpenChange(false); toast.success("Delivery address saved"); };
   const locate = () => {
-    if (!navigator.geolocation) return toast.error("Location not supported");
+    if (!navigator.geolocation) { toast.error("Location not supported"); return; }
     navigator.geolocation.getCurrentPosition(
       (p) => save(`Near ${p.coords.latitude.toFixed(3)}, ${p.coords.longitude.toFixed(3)}`),
       () => toast.error("Couldn't get your location"),
