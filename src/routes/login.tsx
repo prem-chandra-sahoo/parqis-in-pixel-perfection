@@ -44,10 +44,29 @@ function Login() {
           });
     setBusy(false);
     if (error) {
-      toast.error(error.message);
+      if (error.message.toLowerCase().includes("rate limit")) {
+        toast.error("Supabase email rate limit reached. Please disable 'Confirm email' in Supabase under Authentication > Providers > Email for instant password signups.", {
+          duration: 9000,
+        });
+      } else {
+        toast.error(error.message);
+      }
       return;
     }
-    if (mode === "up" && !data.session) toast.success("Check your email to confirm your account");
+
+    if (mode === "up") {
+      if (data.session) {
+        toast.success("Account created and signed in successfully!");
+        nav({ to: "/account" });
+      } else {
+        toast.success("Account created! Please check your email inbox to verify your account.", {
+          duration: 6000,
+        });
+      }
+    } else {
+      toast.success("Signed in successfully!");
+      nav({ to: "/account" });
+    }
   };
 
   const google = async () => {
