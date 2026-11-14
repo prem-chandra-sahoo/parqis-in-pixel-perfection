@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AccountRouteImport } from './routes/account'
 import { Route as CartRouteImport } from './routes/cart'
 import { Route as CategoriesRouteImport } from './routes/categories'
+import { Route as LoginRouteImport } from './routes/login'
 import { Route as SearchRouteImport } from './routes/search'
 import { Route as TrendsRouteImport } from './routes/trends'
 import { Route as WishlistRouteImport } from './routes/wishlist'
@@ -37,6 +38,11 @@ const CartRoute = CartRouteImport.update({
 const CategoriesRoute = CategoriesRouteImport.update({
   id: '/categories',
   path: '/categories',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SearchRoute = SearchRouteImport.update({
@@ -70,6 +76,7 @@ export interface FileRoutesByFullPath {
   '/account': typeof AccountRoute
   '/cart': typeof CartRoute
   '/categories': typeof CategoriesRoute
+  '/login': typeof LoginRoute
   '/search': typeof SearchRoute
   '/trends': typeof TrendsRoute
   '/wishlist': typeof WishlistRoute
@@ -81,6 +88,7 @@ export interface FileRoutesByTo {
   '/account': typeof AccountRoute
   '/cart': typeof CartRoute
   '/categories': typeof CategoriesRoute
+  '/login': typeof LoginRoute
   '/search': typeof SearchRoute
   '/trends': typeof TrendsRoute
   '/wishlist': typeof WishlistRoute
@@ -93,6 +101,7 @@ export interface FileRoutesById {
   '/account': typeof AccountRoute
   '/cart': typeof CartRoute
   '/categories': typeof CategoriesRoute
+  '/login': typeof LoginRoute
   '/search': typeof SearchRoute
   '/trends': typeof TrendsRoute
   '/wishlist': typeof WishlistRoute
@@ -106,6 +115,7 @@ export interface FileRouteTypes {
     | '/account'
     | '/cart'
     | '/categories'
+    | '/login'
     | '/search'
     | '/trends'
     | '/wishlist'
@@ -117,6 +127,7 @@ export interface FileRouteTypes {
     | '/account'
     | '/cart'
     | '/categories'
+    | '/login'
     | '/search'
     | '/trends'
     | '/wishlist'
@@ -128,6 +139,7 @@ export interface FileRouteTypes {
     | '/account'
     | '/cart'
     | '/categories'
+    | '/login'
     | '/search'
     | '/trends'
     | '/wishlist'
@@ -140,6 +152,7 @@ export interface RootRouteChildren {
   AccountRoute: typeof AccountRoute
   CartRoute: typeof CartRoute
   CategoriesRoute: typeof CategoriesRoute
+  LoginRoute: typeof LoginRoute
   SearchRoute: typeof SearchRoute
   TrendsRoute: typeof TrendsRoute
   WishlistRoute: typeof WishlistRoute
@@ -175,6 +188,13 @@ declare module '@tanstack/react-router' {
       path: '/categories'
       fullPath: '/categories'
       preLoaderRoute: typeof CategoriesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/search': {
@@ -220,6 +240,7 @@ const rootRouteChildren: RootRouteChildren = {
   AccountRoute: AccountRoute,
   CartRoute: CartRoute,
   CategoriesRoute: CategoriesRoute,
+  LoginRoute: LoginRoute,
   SearchRoute: SearchRoute,
   TrendsRoute: TrendsRoute,
   WishlistRoute: WishlistRoute,
