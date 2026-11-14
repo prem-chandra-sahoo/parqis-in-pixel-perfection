@@ -14,7 +14,99 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      addresses: {
+        Row: {
+          created_at: string
+          id: string
+          label: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          label: string
+          user_id?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          label?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      orders: {
+        Row: {
+          address: string
+          created_at: string
+          id: string
+          items: Json
+          status: string
+          total: number
+          user_id: string
+        }
+        Insert: {
+          address: string
+          created_at?: string
+          id?: string
+          items: Json
+          status?: string
+          total: number
+          user_id?: string
+        }
+        Update: {
+          address?: string
+          created_at?: string
+          id?: string
+          items?: Json
+          status?: string
+          total?: number
+          user_id?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          created_at: string
+          id: string
+          name: string | null
+          phone: string | null
+        }
+        Insert: {
+          created_at?: string
+          id: string
+          name?: string | null
+          phone?: string | null
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          name?: string | null
+          phone?: string | null
+        }
+        Relationships: []
+      }
+      shop_state: {
+        Row: {
+          cart: Json
+          updated_at: string
+          user_id: string
+          wishlist: Json
+        }
+        Insert: {
+          cart?: Json
+          updated_at?: string
+          user_id: string
+          wishlist?: Json
+        }
+        Update: {
+          cart?: Json
+          updated_at?: string
+          user_id?: string
+          wishlist?: Json
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
